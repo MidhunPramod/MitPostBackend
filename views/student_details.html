@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="student_data">
+    </div>
+
+    <script>
+        fetch('/studentDetails', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/JSON",
+            },
+            redirect: 'error'
+        }).then(res => {
+            return res.json();
+        }).then(function (json) {
+            console.log(json);
+            show_details(json);
+        }).catch(function (error) {
+            alert("Please check your internet connection.");
+            console.log(error);
+        });
+
+        function show_details(data) {
+            var outer_div = document.querySelector('.student_data');
+
+            for (var i = 0; i < data.length; i++) {
+                var student_row = document.createElement('div');
+
+                var name_div = document.createElement('div');
+                name_div.textContent = `Name : ${data[i].name}`;
+
+                var year_div = document.createElement('div');
+                year_div.textContent = `Year : ${data[i].year}`;
+
+                var reg_div = document.createElement('div');
+                reg_div.textContent = `Reg No : ${data[i].reg_no}`;
+
+                var br = document.createElement('br');
+
+                student_row.appendChild(name_div);
+                student_row.appendChild(year_div);
+                student_row.appendChild(reg_div);
+                student_row.appendChild(br);
+
+                outer_div.appendChild(student_row);
+            }
+        };
+    </script>
+</body>
+
+</html>

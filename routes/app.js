@@ -72,4 +72,26 @@ router.post('/checkCourse', (req, res, next) => {
     })
 })
 
+router.get('/studentDetails', (req, res) => {
+    return res.sendFile(path.resolve('./views/student_details.html'));
+});
+
+router.post('/studentDetails', (req, res) => {
+    Students.find({}).then((student) => {
+        res.send(student)
+        console.log(student);
+    })
+})
+
+router.get('/courseDetails', (req, res) => {
+    return res.sendFile(path.resolve('./views/course_details.html'));
+});
+
+router.post('/courseDetails', (req, res) => {
+    Courses.find({}).then((course) => {
+        res.send(course)
+        console.log(course);
+    })
+})
+
 module.exports = router;

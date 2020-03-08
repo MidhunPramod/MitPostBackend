@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="course_data">
+    </div>
+
+    <script>
+        fetch('/courseDetails', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/JSON",
+            },
+            redirect: 'error'
+        }).then(res => {
+            return res.json();
+        }).then(function (json) {
+            console.log(json);
+            show_details(json);
+        }).catch(function (error) {
+            alert("Please check your internet connection.");
+            console.log(error);
+        });
+
+        function show_details(data) {
+            var outer_div = document.querySelector('.course_data');
+
+            for (var i = 0; i < data.length; i++) {
+                var course_row = document.createElement('div');
+
+                var name_div = document.createElement('div');
+                name_div.textContent = `Name : ${data[i].name}`;
+
+                var year_div = document.createElement('div');
+                year_div.textContent = `Year : ${data[i].year}`;
+
+                var id_div = document.createElement('div');
+                id_div.textContent = `Course ID : ${data[i].course_id}`;
+
+                var num_div = document.createElement('div');
+                num_div.textContent = `students Enrolled : ${data[i].num_studs}`;
+
+                var br = document.createElement('br');
+
+                course_row.appendChild(name_div);
+                course_row.appendChild(year_div);
+                course_row.appendChild(id_div);
+                course_row.appendChild(num_div);
+                course_row.appendChild(br);
+
+                outer_div.appendChild(course_row);
+            }
+        };
+    </script>
+</body>
+
+</html>
