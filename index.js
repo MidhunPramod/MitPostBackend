@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-app.use('/api', approute);
+app.use('/', approute);
 
 
 app.listen(process.env.port || 4000, function () {

@@ -6,6 +6,10 @@ const takenSchema = new Schema({
         type: Number,
         required: true
     },
+    apply_date: {
+        type: String,
+        required: true
+    }
 });
 
 const studentSchema = new Schema({
