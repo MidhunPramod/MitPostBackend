@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" placeholder="Search Key" id="search">
+    <input type="button" value="Search" id="searchbtn">
+
+    <div class="names">
+
+    </div>
+    <script>
+        var searchbtn = document.querySelector('#searchbtn');
+        searchbtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            search();
+        })
+
+        function search() {
+            var value = document.querySelector('#search').value;
+
+            var data = {
+                "value": value
+            }
+
+            fetch('/checkCourse', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/JSON",
+                },
+                body: JSON.stringify(data),
+                redirect: 'error'
+            }).then(res => {
+                return res.json();
+            }).then(function (json) {
+                console.log(json);
+                display_names(json);
+            }).catch(function (error) {
+                alert("Please check your internet connection.");
+                console.log(error);
+            });
+        }
+
+        function display_names(data) {
+            var name_div = document.querySelector('.names');
+
+            for (var i = 0; i < data.length; i++) {
+                var name = document.createElement('div');
+                name.textContent = data[i].name;
+
+                name_div.appendChild(name);
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form>
+        <input type="number" placeholder="ID" name="id">
+        <br>
+        <input type="text" placeholder="Name" name="name">
+        <br>
+        <input type="number" placeholder="Year" name="year">
+        <br>
+
+        <input type="submit" value="Submit" id="btn">
+    </form>
+
+    <script>
+        var btn = document.querySelector('#btn');
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            post_data();
+        })
+
+        function post_data() {
+            var name = document.querySelector('input[name="name"]').value;
+            var year = document.querySelector('input[name="year"]').value;
+            var id = document.querySelector('input[name="id"]').value;
+
+            var data = {
+                "course_id": id,
+                "name": name,
+                "year": year,
+            }
+
+            fetch('/addCourse', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/JSON",
+                },
+                body: JSON.stringify(data),
+                redirect: 'error'
+            }).then(res => {
+                return res.json();
+            }).then(function (json) {
+                console.log("Success");
+            }).catch(function (error) {
+                alert("Please check your internet connection.");
+                console.log(error);
+            });
+        }
+    </script>
+</body>
+
+</html>
