@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form>
+        <input type="text" placeholder="Name" name="name">
+        <input type="number" placeholder="Year" name="year">
+        <input type="number" placeholder="Registration" name="reg_no">
+        <input type="number" placeholder="Course ID" name="course_id">
+        <input type="submit" value="Submit" id="btn">
+    </form>
+
+    <script>
+        var btn = document.querySelector('#btn');
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            post_data();
+        })
+
+        function post_data() {
+            var name = document.querySelector('input[name="name"]').value;
+            var year = document.querySelector('input[name="year"]').value;
+            var reg_no = document.querySelector('input[name="reg_no"]').value;
+            var course_id = document.querySelector('input[name="course_id"]').value;
+
+            var data = {
+                "name": name,
+                "year": year,
+                "reg_no": reg_no,
+                "course_taken": [{
+                    "course_id": course_id
+                }]
+            }
+            console.log(JSON.stringify(data));
+            fetch('/api', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/JSON",
+                },
+                body: JSON.stringify(data),
+                redirect: 'error'
+            }).then(res => {
+                return res.json();
+            }).then(function (json) {
+                console.log("Success");
+            }).catch(function (error) {
+                alert("Please check your internet connection.");
+                console.log(error);
+            });
+        }
+    </script>
+
+
+
+
+
+
+
+
+</body>
+
+</html>
