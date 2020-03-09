@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" placeholder="Student ID" id="student">
+    <input type="text" placeholder="Course ID" id="course">
+    <br>
+    <input type="button" value="Submit" id="btn">
+
+    <script>
+        var btn = document.querySelector('#btn');
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            post_data();
+        })
+
+        function post_data() {
+
+            var stud_id = document.querySelector('#student').value;
+            var course_id = document.querySelector('#course').value;
+
+            var data = {
+                stud_id: stud_id,
+                course_id: course_id
+            }
+
+
+            fetch('/admit', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/JSON",
+                },
+                body: JSON.stringify(data),
+                redirect: 'error'
+            }).then(res => {
+                return res.json();
+            }).then(function (json) {
+                console.log("Success");
+            }).catch(function (error) {
+                alert("Please check your internet connection.");
+                console.log(error);
+            });
+        }
+    </script>
+</body>
+
+</html>

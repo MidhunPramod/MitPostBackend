@@ -13,7 +13,7 @@ const connect = mongoose.connect(url);
 
 
 router.get('/addStudent', (req, res) => {
-    return res.sendFile(path.resolve('views/index.html'));
+    return res.sendFile(path.resolve('views/student_add.html'));
 })
 
 router.post('/addStudent', (req, res, next) => {
@@ -92,6 +92,33 @@ router.post('/courseDetails', (req, res) => {
         res.send(course)
         console.log(course);
     })
+})
+
+router.get('/admit', (req, res) => {
+    return res.sendFile(path.resolve('./views/admit_students.html'));
+})
+
+router.post('/admit', (req, res) => {
+    const value = req.body;
+    console.log(value);
+    check_details(value);
+
+    async function check_details(data) {
+        let student = await Students.find({
+            "reg_no": value.stud_id
+        })
+
+        let course = await Courses.find({
+            "course_id": value.course_id
+        })
+
+        if (student[0].year != course[0].year) {
+            console.log("Year Mismatch");
+        }
+    }
+
+
+
 })
 
 module.exports = router;

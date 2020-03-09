@@ -4,11 +4,9 @@ const Schema = mongoose.Schema;
 const takenSchema = new Schema({
     course_id: {
         type: Number,
-        required: true
     },
     apply_date: {
         type: String,
-        required: true
     }
 });
 

@@ -15,7 +15,13 @@
         <br>
         <input type="number" placeholder="Year" name="year">
         <br>
+        <div class="course_details">
+            <input type="button" value="Add Course" id="addbtn">
+            <div class="course_values">
+                <input type="number" placeholder="Prerequisite Course ID" class="course_id">
+            </div>
 
+        </div>
         <input type="submit" value="Submit" id="btn">
     </form>
 
@@ -26,16 +32,34 @@
             post_data();
         })
 
+        var addbtn = document.querySelector('#addbtn');
+        addbtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            add_row()
+        })
+
         function post_data() {
             var name = document.querySelector('input[name="name"]').value;
             var year = document.querySelector('input[name="year"]').value;
             var id = document.querySelector('input[name="id"]').value;
 
+            prereq_ids = [];
+            var rows = document.querySelectorAll('.course_values');
+
+            for (var i = 0; i < rows.length; i++) {
+                var prereq_course_id = rows[i].querySelector('.course_id').value;
+
+                prereq_ids.push({
+                    "prereq_id": prereq_course_id,
+                });
+            }
+
             var data = {
                 "course_id": id,
                 "name": name,
                 "year": year,
-            }
+                "prereq_ids": prereq_ids
+            };
 
             fetch('/addCourse', {
                 method: 'POST',
@@ -52,7 +76,26 @@
                 alert("Please check your internet connection.");
                 console.log(error);
             });
+
+
         }
+
+        function add_row() {
+
+            var outer_div = document.querySelector('.course_details');
+            var row_div = document.createElement('div');
+            row_div.setAttribute('class', 'course_values');
+
+            var course_id = document.createElement('input');
+            course_id.setAttribute('type', 'text');
+            course_id.setAttribute('placeholder', 'Prerequisite Course ID');
+            course_id.setAttribute('class', 'course_id');
+
+            row_div.appendChild(course_id);
+
+            outer_div.appendChild(row_div);
+
+        };
     </script>
 </body>
 

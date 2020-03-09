@@ -14,14 +14,14 @@
         <input type="number" placeholder="Year" name="year">
         <br>
         <input type="number" placeholder="Registration" name="reg_no">
-        <div class="course_details">
+        <!-- <div class="course_details">
             <input type="button" value="Add Course" id="addbtn">
             <div class="course_values">
                 <input type="number" placeholder="Course ID" class="course_id">
                 <input type="text" placeholder="Date of enrolling" class="apply_date">
             </div>
 
-        </div>
+        </div> -->
 
         <input type="submit" value="Submit" id="btn">
     </form>
@@ -33,38 +33,38 @@
             post_data();
         })
 
-        var addbtn = document.querySelector('#addbtn');
-        addbtn.addEventListener('click', function (e) {
-            e.preventDefault();
-            add_row()
-        })
+        // var addbtn = document.querySelector('#addbtn');
+        // addbtn.addEventListener('click', function (e) {
+        //     e.preventDefault();
+        //     add_row()
+        // })
 
         function post_data() {
             var name = document.querySelector('input[name="name"]').value;
             var year = document.querySelector('input[name="year"]').value;
             var reg_no = document.querySelector('input[name="reg_no"]').value;
 
-            course_taken = [];
-            var rows = document.querySelectorAll('.course_values');
+            // course_taken = [];
+            // var rows = document.querySelectorAll('.course_values');
 
-            for (var i = 0; i < rows.length; i++) {
-                var course_id = rows[i].querySelector('.course_id').value;
-                var apply_date = rows[i].querySelector('.apply_date').value;
+            // for (var i = 0; i < rows.length; i++) {
+            //     var course_id = rows[i].querySelector('.course_id').value;
+            //     var apply_date = rows[i].querySelector('.apply_date').value;
 
-                console.log(course_id);
-                console.log(apply_date);
+            //     console.log(course_id);
+            //     console.log(apply_date);
 
-                course_taken.push({
-                    "course_id": course_id,
-                    "apply_date": apply_date
-                })
-            }
+            //     course_taken.push({
+            //         "course_id": course_id,
+            //         "apply_date": apply_date
+            //     })
+            // }
 
             var data = {
                 "name": name,
                 "year": year,
                 "reg_no": reg_no,
-                "course_taken": course_taken
+                "course_taken": []
             }
             console.log(JSON.stringify(data));
             fetch('/addStudent', {
@@ -84,28 +84,28 @@
             });
         }
 
-        function add_row() {
+        // function add_row() {
 
-            var outer_div = document.querySelector('.course_details');
-            var row_div = document.createElement('div');
-            row_div.setAttribute('class', 'course_values');
+        //     var outer_div = document.querySelector('.course_details');
+        //     var row_div = document.createElement('div');
+        //     row_div.setAttribute('class', 'course_values');
 
-            var course_id = document.createElement('input');
-            course_id.setAttribute('type', 'text');
-            course_id.setAttribute('placeholder', 'Course ID');
-            course_id.setAttribute('class', 'course_id');
+        //     var course_id = document.createElement('input');
+        //     course_id.setAttribute('type', 'text');
+        //     course_id.setAttribute('placeholder', 'Course ID');
+        //     course_id.setAttribute('class', 'course_id');
 
-            var apply_date = document.createElement('input');
-            apply_date.setAttribute('type', 'text');
-            apply_date.setAttribute('placeholder', 'Date of enrolling');
-            apply_date.setAttribute('class', 'apply_date');
+        //     var apply_date = document.createElement('input');
+        //     apply_date.setAttribute('type', 'text');
+        //     apply_date.setAttribute('placeholder', 'Date of enrolling');
+        //     apply_date.setAttribute('class', 'apply_date');
 
-            row_div.appendChild(course_id);
-            row_div.appendChild(apply_date);
+        //     row_div.appendChild(course_id);
+        //     row_div.appendChild(apply_date);
 
-            outer_div.appendChild(row_div);
+        //     outer_div.appendChild(row_div);
 
-        }
+        // }
     </script>
 </body>
 

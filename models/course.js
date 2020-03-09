@@ -19,7 +19,12 @@ const courseSchema = new Schema({
     num_studs: {
         type: Number,
         default: 0
-    }
+    },
+    prereq_ids: [{
+        prereq_id: {
+            type: Number
+        }
+    }]
 });
 
 const Course = mongoose.model('course', courseSchema);
