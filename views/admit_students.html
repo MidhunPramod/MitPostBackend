@@ -41,9 +41,10 @@
             }).then(res => {
                 return res.json();
             }).then(function (json) {
-                console.log("Success");
                 if (json.msg) {
                     alert(json.msg);
+                } else {
+                    alert("Successfully added");
                 }
             }).catch(function (error) {
                 alert("Please check your internet connection.");

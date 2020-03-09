@@ -141,18 +141,32 @@ router.post('/admit', (req, res) => {
                 course_taken.push(student[0].course_taken[l].course_id)
             }
 
+            if (course_taken.includes(Number(value.course_id))) {
+                return res.send({
+                    "msg": "Course Already Taken"
+                })
+            }
+
             for (let m = 0; m < prereq_array.length; m++) {
                 if (course_taken.indexOf(prereq_array[m]) == -1) {
-                    //flag = 1;
+                    flag = 1;
                     return res.send({
                         "msg": `Take Course id : ${prereq_array[m]} before taking this course`
                     });
                 }
             }
 
-            // if (flag == 0) {
-            //     console.log('nooooo');
-            // }
+            if (flag == 0) {
+                Students.updateOne({
+                    reg_no: value.stud_id
+                }, {
+                    $push: {
+                        course_taken: {
+                            "course_id": value.course_id
+                        }
+                    }
+                }, ).then(res.send({}))
+            }
         }
 
     }

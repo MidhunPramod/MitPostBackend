@@ -49,6 +49,13 @@
                 student_row.appendChild(name_div);
                 student_row.appendChild(year_div);
                 student_row.appendChild(reg_div);
+
+                for (var m = 0; m < data[i].course_taken.length; m++) {
+                    var course_div = document.createElement('div');
+                    course_div.textContent = `Course Taken : ${data[i].course_taken[m].course_id}`;
+
+                    student_row.appendChild(course_div);
+                }
                 student_row.appendChild(br);
 
                 outer_div.appendChild(student_row);
