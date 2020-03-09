@@ -141,6 +141,8 @@ router.post('/admit', (req, res) => {
                 course_taken.push(student[0].course_taken[l].course_id)
             }
 
+            console.log(course_taken.includes(Number(value.course_id)));
+
             if (course_taken.includes(Number(value.course_id))) {
                 return res.send({
                     "msg": "Course Already Taken"
@@ -175,7 +177,13 @@ router.post('/admit', (req, res) => {
                     }).then(
                         res.send({})
                     )
-                )
+                ).catch((e) => {
+                    console.log(e);
+                    res.send({
+                        "msg": "Problem Updating"
+                    })
+
+                })
             }
         }
 

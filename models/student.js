@@ -4,7 +4,6 @@ const Schema = mongoose.Schema;
 const takenSchema = new Schema({
     course_id: {
         type: Number,
-        unique: true
     }
 });
 
