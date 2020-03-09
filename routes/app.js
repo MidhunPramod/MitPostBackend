@@ -112,13 +112,50 @@ router.post('/admit', (req, res) => {
             "course_id": value.course_id
         })
 
-        if (student[0].year != course[0].year) {
-            console.log("Year Mismatch");
+        if (student.length == 0) {
+            res.send({
+                "msg": "Invalid Student Username"
+            })
         }
+
+        if (course.length == 0) {
+            return res.send({
+                "msg": "Invalid Course Id"
+            })
+        } else
+        if (student[0].year < course[0].year) {
+            return res.send({
+                "msg": `Student with year ${student[0].year},cannot take course with year ${course[0].year}`
+            })
+        } else {
+            let flag = 0;
+            prereq_array = [];
+
+            for (let k = 0; k < course[0].prereq_ids.length; k++) {
+                prereq_array.push(course[0].prereq_ids[k].prereq_id);
+            }
+
+            course_taken = [];
+
+            for (let l = 0; l < student[0].course_taken.length; l++) {
+                course_taken.push(student[0].course_taken[l].course_id)
+            }
+
+            for (let m = 0; m < prereq_array.length; m++) {
+                if (course_taken.indexOf(prereq_array[m]) == -1) {
+                    //flag = 1;
+                    return res.send({
+                        "msg": `Take Course id : ${prereq_array[m]} before taking this course`
+                    });
+                }
+            }
+
+            // if (flag == 0) {
+            //     console.log('nooooo');
+            // }
+        }
+
     }
-
-
-
 })
 
 module.exports = router;

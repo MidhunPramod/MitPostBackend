@@ -47,12 +47,17 @@
             var rows = document.querySelectorAll('.course_values');
 
             for (var i = 0; i < rows.length; i++) {
-                var prereq_course_id = rows[i].querySelector('.course_id').value;
 
+                var prereq_course_id = rows[i].querySelector('.course_id').value;
+                if (prereq_course_id == "") {
+                    continue;
+                }
                 prereq_ids.push({
                     "prereq_id": prereq_course_id,
                 });
             }
+
+            console.log(prereq_ids);
 
             var data = {
                 "course_id": id,
