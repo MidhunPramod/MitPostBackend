@@ -165,7 +165,17 @@ router.post('/admit', (req, res) => {
                             "course_id": value.course_id
                         }
                     }
-                }, ).then(res.send({}))
+                }, ).then(
+                    Courses.updateOne({
+                        "course_id": value.course_id
+                    }, {
+                        $inc: {
+                            num_studs: 1
+                        }
+                    }).then(
+                        res.send({})
+                    )
+                )
             }
         }
 
