@@ -8,9 +8,6 @@ const Courses = require('../models/course');
 
 const path = require('path');
 
-// const url = 'mongodb://localhost:27017/school';
-// const connect = mongoose.connect(url);
-
 const CONNECTION_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/school';
 mongoose.Promise = global.Promise;
 mongoose.set('debug', true);
