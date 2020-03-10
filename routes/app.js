@@ -8,7 +8,7 @@ const Courses = require('../models/course');
 
 const path = require('path');
 
-const CONNECTION_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/school';
+const CONNECTION_URI = process.env.MONGODB_URI || 'mongodb+srv://midhun:midhun123@student-c1hxm.mongodb.net/test?retryWrites=true&w=majority';
 mongoose.Promise = global.Promise;
 mongoose.set('debug', true);
 
