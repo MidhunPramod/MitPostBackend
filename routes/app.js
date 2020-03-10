@@ -19,6 +19,11 @@ mongoose.connect(CONNECTION_URI, {
     console.log('Connected to MongoDB');
 }).catch(err => console.log(err));
 
+router.get('/', (req, res) => {
+    res.send('Application Made by Midhun Pramod');
+})
+
+
 router.get('/addStudent', (req, res) => {
     return res.sendFile(path.resolve('views/student_add.html'));
 })
